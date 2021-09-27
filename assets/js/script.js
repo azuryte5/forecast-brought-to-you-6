@@ -1,39 +1,50 @@
 
-
-
-// To find weather fo"r 5 day call https://openweathermap.org/forecast5
-// fetch command is  "api.openweathermap.org/data/2.5/forecast?q="+ {city name}+"&units=metric&appid=" + "9273ac9fe325b93d191b9daf0d028c35"
-
-// This is where you would find the city tag after q for cityname 
-// "city": {
-//     "id": 2643743,
-//     "name": "London",
-
-// Need to use Metric units if not there temperatures will be in Kelvin! https://openweathermap.org/forecast5#:~:text=api.openweathermap.org/data/2.5/find%3Fq%3DLondon%26units%3Dmetric
-
-// Time to get fetch working once for london
-
-// "weather": [
-//   {
-//     "id": 300,
-//     "main": "Drizzle",
-//     "description": "light intensity drizzle",
-//     "icon": "09d"
 // Use this for the Icon weather
 // Might need to use current weather for RIGHT NOW https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35
 //
 fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
 .then(function(weather) {
-  return weather.json();
-})
+  if (weather.ok){
+  return weather.json() 
 .then(function(weather){
   console.log(weather)
-        console.log("The current City is :" + weather.main.name)
+  // current grabs of business logic
+        console.log("The current City is :" + weather.name)
         console.log("The city is part of this country: " + weather.sys.country)
         console.log("The current Temperature is " +weather.main.temp+" °C 🌡️")
         console.log("The current Wind speed is " + weather.wind.speed+ "KPH 🚩")
         console.log("The current Humidity is " +weather.main.humidity + "%")
         console.log("When this is 200, it means the fetch worked: "+ weather.cod)
+  
+  // Start building elements for display logic
+  var currentWeatherEl= document.createElement("div")
+      currentWeatherEl.classList = "flex-row, justify-space-between align-center";
+  var weatherCityEl = document.createElement("li");
+      weatherCityEl.textContent ="City: " + weather.name;
+  var weatherCountryEl = document.createElement("li");
+      weatherCountryEl.textContent = " Country: " +weather.sys.country;
+  var weatherTempEl = document.createElement("li");
+      weatherTempEl.textContent = "Temp: " + weather.main.temp +" °C 🌡️";
+  var weatherWindEl = document.createElement("li");
+      weatherWindEl.textContent = "Wind speed: " + weather.wind.speed+ " KPH 🚩";
+  var weatherHumidEl = document.createElement("li");   
+      weatherHumidEl.textContent = "Humidity: " +weather.main.humidity + " %";
+
+      
+  // Add city name, country to div
+  currentWeatherEl.appendChild(weatherCityEl);
+  currentWeatherEl.appendChild(weatherCountryEl);
+  currentWeatherEl.appendChild(weatherTempEl);
+  currentWeatherEl.appendChild(weatherWindEl);
+  currentWeatherEl.appendChild(weatherHumidEl);
+
+  document.body.appendChild(currentWeatherEl)
+})
+  }else{
+  alert("There is a problem with your request!");
+  document.location.replace("./index.html");
+};
+
 })
 
 // This is be just for 5 day forecast 
