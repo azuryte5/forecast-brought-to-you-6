@@ -1,4 +1,5 @@
 var current=document.querySelector("#current");
+
 // Use this for the Icon weather
 // Might need to use current weather for RIGHT NOW https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35
 //
@@ -51,25 +52,52 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
 })
 
 // This is be just for 5 day forecast 
-fetch(
-   //This is the fetch request
-    "https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35"
-  )
-    .then(function(forecast) {
-      return forecast.json();
-    })
-    .then(function(forecast) {
+fetch("https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
+.then(function(forecast) {
+  return forecast.json();})
+.then(function(forecast) {
       console.log(forecast);
-        for (var i=7;i < forecast.list.length;i=i+8) {
-        console.log(i);
-        console.log("This is the date " +forecast.list[i].dt_txt);
-        console.log("This is the weather icon info: " + forecast.list[i].weather[0].icon);
-        console.log("This is the weather description: " +forecast.list[i].weather[0].description);
-        console.log("The Temperature is " +forecast.list[i].main.temp+" °C 🌡️");
-        console.log("The Wind speed is " + forecast.list[i].wind.speed+ "KPH 🚩");
-        console.log("The Humidity is " +forecast.list[i].main.humidity + "%");
-        console.log("When this is 200, it means the fetch worked: "+ forecast.cod);
+      for (var i=7;i < forecast.list.length;i=i+8) {
+      console.log(i);
+      console.log("This is the date " +forecast.list[i].dt_txt);
+      console.log("This is the weather icon info: " + forecast.list[i].weather[0].icon);
+      console.log("This is the weather description: " +forecast.list[i].weather[0].description);
+      console.log("The Temperature is " +forecast.list[i].main.temp+" °C 🌡️");
+      console.log("The Wind speed is " + forecast.list[i].wind.speed+ "KPH 🚩");
+      console.log("The Humidity is " +forecast.list[i].main.humidity + "%");
+      console.log("When this is 200, it means the fetch worked: "+ forecast.cod);
+  
+  var future=document.querySelector("#future-"+[i]);
+  // id="future-title-7"
+  var futureTitle=document.querySelector("#future-title-"+[i]);
+  
+  var futureForecastEl= document.createElement("ul")
+      futureForecastEl.classList = "flex-row, justify-space-between align-center";
+  var forecastDateEl = document.createElement("h2");
+      forecastDateEl.textContent ="Date: " + forecast.list[i].dt_txt;
+  var forecastTempEl = document.createElement("li");
+      forecastTempEl.textContent = "Temp: " + forecast.list[i].main.temp +" °C 🌡️";
+  var forecastWindEl = document.createElement("li");
+      forecastWindEl.textContent = "Wind speed: " + forecast.list[i].wind.speed+ " KPH 🚩";
+  var forecastHumidEl = document.createElement("li");   
+      forecastHumidEl.textContent = "Humidity: " +forecast.list[i].main.humidity + " %";
+        
+      futureForecastEl.appendChild(forecastTempEl);
+      futureForecastEl.appendChild(forecastWindEl);
+      futureForecastEl.appendChild(forecastHumidEl);
+      
+      futureTitle.appendChild(forecastDateEl)
+      future.appendChild(futureForecastEl)
         // console.log(response)
         // console.log(response)
         // console.log(response)       
     }})
+
+    // <div class="row">
+    // <div class="card bg-light mb-3" style="max-width: 18rem;">
+    //     <div class="card-header">Date of 5 day</div>
+    //     <div class="card-body">
+    //       <h5 class="card-title">Icon Would go here</h5>
+    //       <p class="card-text">This is where the Temp, Wind and Humidity would go</p>
+    //     </div>
+    //   </div>
