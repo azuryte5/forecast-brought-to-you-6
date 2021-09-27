@@ -1,8 +1,6 @@
 var current=document.querySelector("#current");
 
 // Use this for the Icon weather
-// Might need to use current weather for RIGHT NOW https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35
-//
 fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
 .then(function(weather) {
   if (weather.ok){
@@ -70,18 +68,22 @@ fetch("https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&ap
   var future=document.querySelector("#future-"+[i]);
   // id="future-title-7"
   var futureTitle=document.querySelector("#future-title-"+[i]);
-  
+  //http://openweathermap.org/img/wn/10d@2x.png
   var futureForecastEl= document.createElement("ul")
       futureForecastEl.classList = "flex-row, justify-space-between align-center";
   var forecastDateEl = document.createElement("h2");
       forecastDateEl.textContent ="Date: " + forecast.list[i].dt_txt;
+  
+  var forecastIconEl=document.querySelector("#icon-"+[i])
+  forecastIconEl.innerHTML='<img src="http://openweathermap.org/img/wn/'+ forecast.list[i].weather[0].icon+'@2x.png"></img>';     
+
   var forecastTempEl = document.createElement("li");
       forecastTempEl.textContent = "Temp: " + forecast.list[i].main.temp +" °C 🌡️";
   var forecastWindEl = document.createElement("li");
       forecastWindEl.textContent = "Wind speed: " + forecast.list[i].wind.speed+ " KPH 🚩";
   var forecastHumidEl = document.createElement("li");   
       forecastHumidEl.textContent = "Humidity: " +forecast.list[i].main.humidity + " %";
-        
+       
       futureForecastEl.appendChild(forecastTempEl);
       futureForecastEl.appendChild(forecastWindEl);
       futureForecastEl.appendChild(forecastHumidEl);

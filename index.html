@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -15,52 +16,54 @@
     </header>
 
     <main class="container flex-row">
-        <div class="col-lg-3">
-            <p>This will have a search bar and save history</p>
-        </div>
-        <div class="col-lg-8">
-            <div id="current" class="row">
-                <!---This is where Current Weather ul/li goes-->
+        <div class="row">
+            <div class="col-lg-2">
+                <p>This will have a search bar and save history</p>
             </div>
-            <div class="row flex-row">
-                <div class="card bg-light mb-2" style="max-width: 10rem;">
-                    <div id="future-title-7" class="card-header"></div>
-                    <div id="future-7" class="card-body">
-                        <h5 class="card-title">Icon Would go here</h5>
-                        <ul class="card-text">
-                        </ul>
-                    </div>
+            <div class="col-lg-10">
+                <div id="current" class="row">
+                    <!---This is where Current Weather ul/li goes-->
                 </div>
-                <div class="card bg-light mb-2" style="max-width: 10rem;">
-                    <div id="future-title-15"class="card-header"></div>
-                    <div id="future-15"class="card-body">
-                        <h5 class="card-title">Icon Would go here</h5>
-                        <ul class="card-text">
-                        </ul>
+                <div class="row flex-row">
+                    <div class="card bg-light mb-2" style="max-width: 11rem;">
+                        <div id="future-title-7" class="card-header"></div>
+                        <div id="future-7" class="card-body">
+                            <h5 id="icon-7" class="card-title">Icon Would go here</h5>
+                            <ul class="card-text">
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="card bg-light mb-2" style="max-width: 10rem;">
-                    <div id="future-title-23" class="card-header"></div>
-                    <div id="future-23" class="card-body">
-                        <h5 class="card-title">Icon Would go here</h5>
-                        <ul class="card-text">
-                        </ul>
+                    <div class="card bg-light mb-2" style="max-width: 11rem;">
+                        <div id="future-title-15" class="card-header"></div>
+                        <div id="future-15" class="card-body">
+                            <h5 id="icon-15" class="card-title">Icon Would go here</h5>
+                            <ul class="card-text">
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="card bg-light mb-2" style="max-width: 10rem;">
-                    <div id="future-title-31" class="card-header"></div>
-                    <div id="future-31" class="card-body">
-                        <h5 class="card-title">Icon Would go here</h5>
-                        <ul class="card-text">
-                        </ul>
+                    <div class="card bg-light mb-2" style="max-width: 11rem;">
+                        <div id="future-title-23" class="card-header"></div>
+                        <div id="future-23" class="card-body">
+                            <h5 id="icon-23" class="card-title">Icon Would go here</h5>
+                            <ul class="card-text">
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="card bg-light mb-2" style="max-width: 10rem;">
-                    <div id="future-title-39" class="card-header"></div>
-                    <div id="future-39" class="card-body">
-                        <h5 class="card-title">Icon Would go here</h5>
-                        <ul class="card-text">
-                        </ul>
+                    <div class="card bg-light mb-2" style="max-width: 11rem;">
+                        <div id="future-title-31" class="card-header"></div>
+                        <div id="future-31" class="card-body">
+                            <h5 id="icon-31" class="card-title">Icon Would go here</h5>
+                            <ul class="card-text">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card bg-light mb-2" style="max-width: 11rem;">
+                        <div id="future-title-39" class="card-header"></div>
+                        <div id="future-39" class="card-body">
+                            <h5 id="icon-39" class="card-title">Icon Would go here</h5>
+                            <ul class="card-text">
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,7 +71,9 @@
 
     </main>
     <!---Header, left column [title, input, search, list of former cities below] right column [Name, current data, current weather] below 5 day forecast[next 5 days]-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="assets/js/script.js"></script>
+    
 </body>
 
 </html>
