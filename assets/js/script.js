@@ -1,6 +1,6 @@
 var current=document.querySelector("#current");
 
-// Use this for the Icon weather
+
 fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
 .then(function(weather) {
   if (weather.ok){
@@ -28,8 +28,7 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
       weatherWindEl.textContent = "Wind speed: " + weather.wind.speed+ " KPH 🚩";
   var weatherHumidEl = document.createElement("li");   
       weatherHumidEl.textContent = "Humidity: " +weather.main.humidity + " %";
-  var weatherUVEl=document.createElement("li");
-      weatherUVEl.textContent = "This is where the uv will go";
+ 
 
       
   // Add city name, country to div
@@ -38,7 +37,6 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
   currentWeatherEl.appendChild(weatherTempEl);
   currentWeatherEl.appendChild(weatherWindEl);
   currentWeatherEl.appendChild(weatherHumidEl);
-  currentWeatherEl.appendChild(weatherUVEl);
 
   current.appendChild(currentWeatherEl)
 })
@@ -48,7 +46,20 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
 };
 
 })
+// get coordinates from here weather.coord.lat + weather.coord.lon   !!!!!!
+//UV index is somewhere else
+fetch("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,daily,alerts&appid=9273ac9fe325b93d191b9daf0d028c35")
+.then(function(uvIndex) {
+  return uvIndex.json();})
+.then(function(uvIndex) {
+      console.log(uvIndex)
+      console.log(uvIndex.current.uvi)
+var weatherUVEl=document.createElement("li");
+weatherUVEl.textContent = "UV index: " + uvIndex.current.uvi;
+//need to add color class
+current.appendChild(weatherUVEl)
 
+    })
 // This is be just for 5 day forecast 
 fetch("https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
 .then(function(forecast) {
@@ -70,12 +81,12 @@ fetch("https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&ap
   var futureTitle=document.querySelector("#future-title-"+[i]);
   //http://openweathermap.org/img/wn/10d@2x.png
   var futureForecastEl= document.createElement("ul")
-      futureForecastEl.classList = "flex-row, justify-space-between align-center";
+      futureForecastEl.classList = "flex-start, padding:0px";
   var forecastDateEl = document.createElement("h2");
       forecastDateEl.textContent ="Date: " + forecast.list[i].dt_txt;
   
   var forecastIconEl=document.querySelector("#icon-"+[i])
-  forecastIconEl.innerHTML='<img src="http://openweathermap.org/img/wn/'+ forecast.list[i].weather[0].icon+'@2x.png"></img>';     
+  forecastIconEl.innerHTML='<img src="http://openweathermap.org/img/wn/'+ forecast.list[i].weather[0].icon+'@2x.png">' + forecast.list[i].weather[0].description;     
 
   var forecastTempEl = document.createElement("li");
       forecastTempEl.textContent = "Temp: " + forecast.list[i].main.temp +" °C 🌡️";
