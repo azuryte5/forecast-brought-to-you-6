@@ -1,4 +1,4 @@
-
+var current=document.querySelector("#current");
 // Use this for the Icon weather
 // Might need to use current weather for RIGHT NOW https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35
 //
@@ -17,7 +17,7 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
         console.log("When this is 200, it means the fetch worked: "+ weather.cod)
   
   // Start building elements for display logic
-  var currentWeatherEl= document.createElement("div")
+  var currentWeatherEl= document.createElement("ul")
       currentWeatherEl.classList = "flex-row, justify-space-between align-center";
   var weatherCityEl = document.createElement("li");
       weatherCityEl.textContent ="City: " + weather.name;
@@ -29,6 +29,8 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
       weatherWindEl.textContent = "Wind speed: " + weather.wind.speed+ " KPH 🚩";
   var weatherHumidEl = document.createElement("li");   
       weatherHumidEl.textContent = "Humidity: " +weather.main.humidity + " %";
+  var weatherUVEl=document.createElement("li");
+      weatherUVEl.textContent = "This is where the uv will go";
 
       
   // Add city name, country to div
@@ -37,8 +39,9 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
   currentWeatherEl.appendChild(weatherTempEl);
   currentWeatherEl.appendChild(weatherWindEl);
   currentWeatherEl.appendChild(weatherHumidEl);
+  currentWeatherEl.appendChild(weatherUVEl);
 
-  document.body.appendChild(currentWeatherEl)
+  current.appendChild(currentWeatherEl)
 })
   }else{
   alert("There is a problem with your request!");

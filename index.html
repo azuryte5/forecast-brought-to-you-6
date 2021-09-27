@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-<body>
+<body class="flex-row min-100-vh">
+    <header class="flex-row justify-space-between"><h1>Weather Dashboard App</h1></header>
+
+    <main class="flex-row">
+        <div class="column col-2">
+            <p>This will have a search bar and save history</p>
+        </div>
+        <div class="col-6">
+            <div id="current" class="row">
+                <p>This is where current weather will go</p>
+        
+            </div>
+            <div class="row">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Date of 5 day</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Icon Would go here</h5>
+                      <p class="card-text">This is where the Temp, Wind and Humidity would go</p>
+                    </div>
+                  </div>
+                  
+            </div>
+        </div>
+
+    </main>
     <!---Header, left column [title, input, search, list of former cities below] right column [Name, current data, current weather] below 5 day forecast[next 5 days]-->
     <script src="assets/js/script.js"></script>
 </body>
