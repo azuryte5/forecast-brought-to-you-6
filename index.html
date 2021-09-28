@@ -15,66 +15,86 @@
     <nav class="navbar-light bg-info">
         <img src="assets/images/weather-icon.png" width="30" height="30" class=" align-top" alt="weather-icon">
         <span class="navbar-brand mb-0 h1">Weather Dashboard App</span>
-      </nav>
+    </nav>
 
     <main class="container-fluid flex-row">
         <div class="row">
-            <div class="col-2 bg-light border border-info">
+        <div class="col-2 flex bin">
+            <div class="col bg-light border border-info">
                 <form>
                     <h2>Enter a City Name:</h2>
                     <input id="locateCity" type="text" placeholder="Location Search">
                     <button id="searchBtn">Search</button>
                 </form>
             </div>
-            <div class="col-10">
-                <div id="current" class="row">
-                    <!---This is where Current Weather ul/li goes-->
+            <div class="card" style="width: 18rem;">
+                <ul id="history">
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-10">
+            <div id="current" class="row">
+                <!---This is where Current Weather ul/li goes-->
+            </div>
+            <div class="row flex-row border border-info">
+                <div class="card bg-blue mb-2" style="max-width: 14rem;">
+                    <div id="future-title-7" class="card-header">1 day from Now</div>
+                    <div class="card-body">
+                        <h5 id="icon-7" class="card-title"></h5>
+                    </div>
+                    <div id="future-7" class="card-body">
+
+                    </div>
                 </div>
-                <div class="row flex-row border border-info">
-                    <div class="card bg-blue mb-2" style="max-width: 14rem;">
-                        <div id="future-title-7" class="card-header">1 day from Now</div>
-                        <div class="card-body"><h5 id="icon-7" class="card-title"></h5></div>
-                        <div id="future-7" class="card-body">
-                            
-                        </div>
+                <div class="card bg-blue mb-2" style="max-width: 14rem;">
+                    <div id="future-title-15" class="card-header">2 days from Now</div>
+                    <div class="card-body">
+                        <h5 id="icon-15" class="card-title"></h5>
                     </div>
-                    <div class="card bg-blue mb-2" style="max-width: 14rem;">
-                        <div id="future-title-15" class="card-header">2 days from Now</div>
-                        <div class="card-body"><h5 id="icon-15" class="card-title"></h5></div>
-                        <div id="future-15" class="card-body">
-                           
-                        </div>
+                    <div id="future-15" class="card-body">
+
                     </div>
-                    <div class="card bg-blue mb-2" style="max-width: 14rem;">
-                        <div id="future-title-23" class="card-header">3 days from Now</div>
-                        <div class="card-body"><h5 id="icon-23" class="card-title"></h5></div>
-                        <div id="future-23" class="card-body">
-                           
-                        </div>
+                </div>
+                <div class="card bg-blue mb-2" style="max-width: 14rem;">
+                    <div id="future-title-23" class="card-header">3 days from Now</div>
+                    <div class="card-body">
+                        <h5 id="icon-23" class="card-title"></h5>
                     </div>
-                    <div class="card bg-blue mb-2" style="max-width: 14rem;">
-                        <div id="future-title-31" class="card-header">4 days from Now</div>
-                        <div class="card-body"><h5 id="icon-31" class="card-title"></h5></div>
-                        <div id="future-31" class="card-body">
-                            <h5 id="icon-31" class="card-title"></h5>
-                        </div>
+                    <div id="future-23" class="card-body">
+
                     </div>
-                    <div class="card bg-blue mb-2" style="max-width: 14rem;">
-                        <div id="future-title-39" class="card-header">5 days from Now</div>
-                        <div class="card-body"><h5 id="icon-39" class="card-title"></h5></div>
-                        <div id="future-39" class="card-body">
-                            
-                        </div>
+                </div>
+                <div class="card bg-blue mb-2" style="max-width: 14rem;">
+                    <div id="future-title-31" class="card-header">4 days from Now</div>
+                    <div class="card-body">
+                        <h5 id="icon-31" class="card-title"></h5>
+                    </div>
+                    <div id="future-31" class="card-body">
+                        <h5 id="icon-31" class="card-title"></h5>
+                    </div>
+                </div>
+                <div class="card bg-blue mb-2" style="max-width: 14rem;">
+                    <div id="future-title-39" class="card-header">5 days from Now</div>
+                    <div class="card-body">
+                        <h5 id="icon-39" class="card-title"></h5>
+                    </div>
+                    <div id="future-39" class="card-body">
+
                     </div>
                 </div>
             </div>
         </div>
-
+        </div>
+    </div>
     </main>
     <!---Header, left column [title, input, search, list of former cities below] right column [Name, current data, current weather] below 5 day forecast[next 5 days]-->
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="assets/js/script.js"></script>
-    
+
 </body>
 
 </html>

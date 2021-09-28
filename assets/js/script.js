@@ -1,6 +1,8 @@
 var current = document.querySelector("#current");
 var searchBtn = document.getElementById("searchBtn");
 
+;
+
 var locateCurrent = function (locate) {
   current.innerHTML=" ";
   var cityName = locate;
@@ -175,10 +177,31 @@ var locateForecast = function (locate) {
       }
     });
 };
-
+var count = 0
 // $("#searchBtn").on("click", locateCurrent("london"));
 searchBtn.addEventListener("click", function(event){
-  event.preventDefault();
-  var locateCity = document.querySelector("#locateCity").value;
-  locateCurrent(locateCity);
+event.preventDefault();
+var locateCity = document.querySelector("#locateCity").value;
+locateCurrent(locateCity);
+
+var cityLi=$("<li>").addClass("list-group-item");
+var cityBtn=$("<button>").attr("id","search").addClass("btn saveBtn btn-info").text(locateCity);
+// var cityBtn=$("<button>").attr("id","search-"+count).addClass("btn saveBtn btn-info").text(locateCity);
+
+cityLi.append(cityBtn)
+$("#history").prepend(cityLi)
+count++
+
 })
+
+var historyBtn =document.getElementById("#search")
+$(historyBtn).on("click", locateCurrent($(this).textContent));
+
+// var searchAgain = $(this).text();
+//  alert("You clicked on a button! now run the locate function")
+// locateCurrent(searchAgain);  
+// document.querySelector("#search").textContent
+
+// var historyBtn =document.querySelector("search-"+count)
+// $(historyBtn).on("click", function(){
+// locateCurrent($(this).textContent)})
