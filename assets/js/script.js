@@ -1,8 +1,8 @@
 var current = document.querySelector("#current");
-var locateCity = document.querySelector("#locateCity");
-var searchBtn = document.querySelector("#searchBtn");
+var searchBtn = document.getElementById("searchBtn");
 
 var locateCurrent = function (locate) {
+  current.innerHTML=" ";
   var cityName = locate;
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -63,7 +63,7 @@ var locateCurrent = function (locate) {
       });
     } else {
       alert("There is a problem with your request!");
-      document.location.replace("./index.html");
+      //document.location.replace("./index.html");
     }
   });
 };
@@ -132,8 +132,9 @@ var locateForecast = function (locate) {
         console.log(
           "When this is 200, it means the fetch worked: " + forecast.cod
         );
-
+        
         var future = document.querySelector("#future-" + [i]);
+        future.innerHTML=" ";
         // id="future-title-7"
         var futureTitle = document.querySelector("#future-title-" + [i]);
         futureTitle.textContent = " ";
@@ -143,8 +144,8 @@ var locateForecast = function (locate) {
         var forecastDateEl = document.createElement("h2");
         forecastDateEl.textContent = "Date: " + forecast.list[i].dt_txt;
 
-        var forecastIconEl = document.querySelector("#icon-" + [i]);
-        forecastIconEl.innerHTML =
+        var forecastIconEl = document.getElementById("icon-" + [i]);
+        forecastIconEl.innerHTML=
           '<img src="http://openweathermap.org/img/wn/' +
           forecast.list[i].weather[0].icon +
           '@2x.png">' +
@@ -171,4 +172,8 @@ var locateForecast = function (locate) {
 };
 
 // $("#searchBtn").on("click", locateCurrent("london"));
-searchBtn.onclick=locateCurrent("Ottawa");
+searchBtn.addEventListener("click", function(event){
+  event.preventDefault();
+  var locateCity = document.querySelector("#locateCity").value;
+  locateCurrent(locateCity);
+})
