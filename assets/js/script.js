@@ -114,7 +114,12 @@ var locateForecast = function (locate) {
       console.log(forecast);
       for (var i = 7; i < forecast.list.length; i = i + 8) {
         console.log(i);
+        // This finds the date and adds it to the 5-day schedule
         console.log("This is the date " + forecast.list[i].dt_txt);
+        var forecastDateText=forecast.list[i].dt_txt.split(" ");
+        forecastDate=forecastDateText[0]
+        console.log(forecastDate)
+
         console.log(
           "This is the weather icon info: " + forecast.list[i].weather[0].icon
         );
@@ -141,8 +146,8 @@ var locateForecast = function (locate) {
         //http://openweathermap.org/img/wn/10d@2x.png
         var futureForecastEl = document.createElement("ul");
         futureForecastEl.className = "flex-start, padding:0px";
-        var forecastDateEl = document.createElement("h2");
-        forecastDateEl.textContent = "Date: " + forecast.list[i].dt_txt;
+        var forecastDateEl = document.createElement("h3");
+        forecastDateEl.textContent = "Date: " + forecastDate;
 
         var forecastIconEl = document.getElementById("icon-" + [i]);
         forecastIconEl.innerHTML=

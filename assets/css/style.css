@@ -1,3 +1,11 @@
+main {
+    margin: 0px;
+}
+
 li {
     list-style-type: none;
+}
+
+nav {
+    padding: 30px;
 }
