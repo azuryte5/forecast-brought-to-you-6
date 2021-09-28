@@ -1,4 +1,5 @@
 var current=document.querySelector("#current");
+// var "#locateCity"
 
 
 fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
@@ -8,13 +9,21 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
 .then(function(weather){
   console.log(weather)
   // current grabs of business logic
-        console.log("The current City is :" + weather.name)
-        console.log("The city is part of this country: " + weather.sys.country)
-        console.log("The current Temperature is " +weather.main.temp+" °C 🌡️")
-        console.log("The current Wind speed is " + weather.wind.speed+ "KPH 🚩")
-        console.log("The current Humidity is " +weather.main.humidity + "%")
-        console.log("When this is 200, it means the fetch worked: "+ weather.cod)
-  
+        console.log("The current City is :" + weather.name);
+        console.log("The city is part of this country: " + weather.sys.country);
+        console.log("The current Temperature is " +weather.main.temp+" °C 🌡️");
+        console.log("The current Wind speed is " + weather.wind.speed+ "KPH 🚩");
+        console.log("The current Humidity is " +weather.main.humidity + "%");
+        console.log("When this is 200, it means the fetch worked: "+ weather.cod);
+        console.log("This is the cities Latitude: " + weather.coord.lat);
+        console.log("This is the cities Longitude: " + weather.coord.lon);
+
+  // Pinpoint city location to send to locateUV      
+  var cityLat=weather.coord.lat;
+  var cityLon=weather.coord.lon;
+
+  locateUV(cityLat, cityLon);
+
   // Start building elements for display logic
   var currentWeatherEl= document.createElement("ul")
       currentWeatherEl.classList = "flex-row, justify-space-between align-center";
@@ -48,18 +57,30 @@ fetch("https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&app
 })
 // get coordinates from here weather.coord.lat + weather.coord.lon   !!!!!!
 //UV index is somewhere else
-fetch("https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,daily,alerts&appid=9273ac9fe325b93d191b9daf0d028c35")
+var locateUV = function (lat,lon){
+fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&appid=9273ac9fe325b93d191b9daf0d028c35")
 .then(function(uvIndex) {
   return uvIndex.json();})
 .then(function(uvIndex) {
-      console.log(uvIndex)
-      console.log(uvIndex.current.uvi)
+      console.log(uvIndex);
+      console.log(uvIndex.current.uvi);
+var currentUV= uvIndex.current.uvi
 var weatherUVEl=document.createElement("li");
 weatherUVEl.textContent = "UV index: " + uvIndex.current.uvi;
-//need to add color class
-current.appendChild(weatherUVEl)
+if (currentUV >= 7){
+weatherUVEl.className="alert alert-danger"
+}
+if (currentUV >= 4){
+weatherUVEl.className="alert alert-warning"
+} else {
+weatherUVEl.className="alert alert-success"
+}
 
-    })
+//need to add color class
+current.appendChild(weatherUVEl);
+
+});
+}
 // This is be just for 5 day forecast 
 fetch("https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&appid=9273ac9fe325b93d191b9daf0d028c35")
 .then(function(forecast) {
@@ -81,7 +102,7 @@ fetch("https://api.openweathermap.org/data/2.5/forecast?q=london&units=metric&ap
   var futureTitle=document.querySelector("#future-title-"+[i]);
   //http://openweathermap.org/img/wn/10d@2x.png
   var futureForecastEl= document.createElement("ul")
-      futureForecastEl.classList = "flex-start, padding:0px";
+      futureForecastEl.className = "flex-start, padding:0px";
   var forecastDateEl = document.createElement("h2");
       forecastDateEl.textContent ="Date: " + forecast.list[i].dt_txt;
   
