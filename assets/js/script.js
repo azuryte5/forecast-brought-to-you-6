@@ -44,10 +44,10 @@ var locateCurrent = function (locate) {
         var weatherCountryEl = document.createElement("li");
         weatherCountryEl.textContent = " Country: " + weather.sys.country;
         var weatherTempEl = document.createElement("li");
-        weatherTempEl.textContent = "Temp: " + weather.main.temp + " °C 🌡️";
+        weatherTempEl.textContent = "Temp: " + Math.round(weather.main.temp) + " °C 🌡️";
         var weatherWindEl = document.createElement("li");
         weatherWindEl.textContent =
-          "Wind speed: " + weather.wind.speed + " KPH 🚩";
+          "Wind speed: " + Math.round(weather.wind.speed) + " KPH 🚩";
         var weatherHumidEl = document.createElement("li");
         weatherHumidEl.textContent =
           "Humidity: " + weather.main.humidity + " %";
@@ -131,9 +131,9 @@ var locateForecast = function (locate) {
           "The Temperature is " + forecast.list[i].main.temp + " °C 🌡️"
         );
         console.log(
-          "The Wind speed is " + forecast.list[i].wind.speed + "KPH 🚩"
+          "The Wind speed is " + Math.round(forecast.list[i].wind.speed*3.6) + "km/h 🚩"
         );
-        console.log("The Humidity is " + forecast.list[i].main.humidity + "%");
+        console.log("The Humidity is " + forecast.list[i].main.humidity + "% 💧");
         console.log(
           "When this is 200, it means the fetch worked: " + forecast.cod
         );
@@ -158,13 +158,13 @@ var locateForecast = function (locate) {
 
         var forecastTempEl = document.createElement("li");
         forecastTempEl.textContent =
-          "Temp: " + forecast.list[i].main.temp + " °C 🌡️";
+          "Temp: " + Math.round(forecast.list[i].main.temp) + " °C 🌡️";
         var forecastWindEl = document.createElement("li");
         forecastWindEl.textContent =
-          "Wind speed: " + forecast.list[i].wind.speed + " KPH 🚩";
+          "Wind speed: " + Math.round(forecast.list[i].wind.speed*3.6) + " km/h 🚩";
         var forecastHumidEl = document.createElement("li");
         forecastHumidEl.textContent =
-          "Humidity: " + forecast.list[i].main.humidity + " %";
+          "Humidity: " + forecast.list[i].main.humidity + " % 💧";
 
         futureForecastEl.appendChild(forecastTempEl);
         futureForecastEl.appendChild(forecastWindEl);
