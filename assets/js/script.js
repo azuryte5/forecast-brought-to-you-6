@@ -1,9 +1,9 @@
+// Search button and Current weather banner. Count is for storage tracking later
 var current = document.querySelector("#current");
 var searchBtn = document.getElementById("searchBtn");
-var city = [];
+var count = 0;
 
-//Local storage of saved cities searches to loop through when buttons are clicked.
-
+// locate variable comes in and fetches from API holds lat and lon and sends it to Locate UV,LocateForecast then builds current WeatherEl
 var locateCurrent = function (locate) {
   current.innerHTML = " ";
   var cityName = locate;
@@ -15,22 +15,22 @@ var locateCurrent = function (locate) {
     if (weather.ok) {
       return weather.json().then(function (weather) {
         console.log(weather);
-        console.log("This is the cityname:" + cityName);
-        // console grabs of business logic
-        console.log("The current City is :" + weather.name);
-        console.log("The city is part of this country: " + weather.sys.country);
-        console.log(
-          "The current Temperature is " + weather.main.temp + " °C 🌡️"
-        );
-        console.log(
-          "The current Wind speed is " + weather.wind.speed + "KPH 🚩"
-        );
-        console.log("The current Humidity is " + weather.main.humidity + "%");
-        console.log(
-          "When this is 200, it means the fetch worked: " + weather.cod
-        );
-        console.log("This is the cities Latitude: " + weather.coord.lat);
-        console.log("This is the cities Longitude: " + weather.coord.lon);
+        // console.log("This is the cityname:" + cityName);
+        
+        // console.log("The current City is :" + weather.name);
+        // console.log("The city is part of this country: " + weather.sys.country);
+        // console.log(
+        //   "The current Temperature is " + weather.main.temp + " °C 🌡️"
+        // );
+        // console.log(
+        //   "The current Wind speed is " + weather.wind.speed + "KPH 🚩"
+        // );
+        // console.log("The current Humidity is " + weather.main.humidity + "%");
+        // console.log(
+        //   "When this is 200, it means the fetch worked: " + weather.cod
+        // );
+        // console.log("This is the cities Latitude: " + weather.coord.lat);
+        // console.log("This is the cities Longitude: " + weather.coord.lon);
 
         // Pinpoint city location to send to locateUV
         var cityLat = weather.coord.lat;
@@ -57,7 +57,7 @@ var locateCurrent = function (locate) {
         weatherHumidEl.textContent =
           "Humidity: " + weather.main.humidity + " %";
 
-        // Add city name, country to div
+        
         currentWeatherEl.appendChild(weatherCityEl);
         currentWeatherEl.appendChild(weatherCountryEl);
         currentWeatherEl.appendChild(weatherTempEl);
@@ -67,16 +67,17 @@ var locateCurrent = function (locate) {
         current.appendChild(currentWeatherEl);
       });
     } else {
-      alert("There is a problem with your request!")
+      //if search is empty, or fails clear and refresh
+      alert("There was an error. Please try again!")
       localStorage.clear();
       document.location.replace("./index.html");
     }
 
-    //Time to save to storage
+    
   });
 };
 // get coordinates from here weather.coord.lat + weather.coord.lon   !!!!!!
-//UV index is somewhere else
+//locateUV searches for UV with lat and lon from ^
 var locateUV = function (lat, lon) {
   fetch(
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -103,13 +104,12 @@ var locateUV = function (lat, lon) {
         weatherUVEl.className = "alert alert-success";
       }
 
-      //need to add color class
       current.appendChild(weatherUVEl);
     });
 };
 
-// var apiURL = “https://api.openweathermap.org/data/2.5/forecast?q=” + searchInput + “&appid=1bcef183a294ce737390e54c659003f3";
-// This is be just for 5 day forecast
+
+// LocateForecast looks for 5 day forecast
 var locateForecast = function (locate) {
   var cityName = locate;
   fetch(
@@ -123,41 +123,41 @@ var locateForecast = function (locate) {
     .then(function (forecast) {
       console.log(forecast);
       for (var i = 7; i < forecast.list.length; i = i + 8) {
-        console.log(i);
-        // This finds the date and adds it to the 5-day schedule
-        console.log("This is the date " + forecast.list[i].dt_txt);
+        // console.log(i);
+    
+        // console.log("This is the date " + forecast.list[i].dt_txt);
         var forecastDateText = forecast.list[i].dt_txt.split(" ");
         forecastDate = forecastDateText[0];
-        console.log(forecastDate);
+        // console.log(forecastDate);
 
-        console.log(
-          "This is the weather icon info: " + forecast.list[i].weather[0].icon
-        );
-        console.log(
-          "This is the weather description: " +
-            forecast.list[i].weather[0].description
-        );
-        console.log(
-          "The Temperature is " + forecast.list[i].main.temp + " °C 🌡️"
-        );
-        console.log(
-          "The Wind speed is " +
-            Math.round(forecast.list[i].wind.speed * 3.6) +
-            "km/h 🚩"
-        );
-        console.log(
-          "The Humidity is " + forecast.list[i].main.humidity + "% 💧"
-        );
-        console.log(
-          "When this is 200, it means the fetch worked: " + forecast.cod
-        );
+        // console.log(
+        //   "This is the weather icon info: " + forecast.list[i].weather[0].icon
+        // );
+        // console.log(
+        //   "This is the weather description: " +
+        //     forecast.list[i].weather[0].description
+        // );
+        // console.log(
+        //   "The Temperature is " + forecast.list[i].main.temp + " °C 🌡️"
+        // );
+        // console.log(
+        //   "The Wind speed is " +
+        //     Math.round(forecast.list[i].wind.speed * 3.6) +
+        //     "km/h 🚩"
+        // );
+        // console.log(
+        //   "The Humidity is " + forecast.list[i].main.humidity + "% 💧"
+        // );
+        // console.log(
+        //   "When this is 200, it means the fetch worked: " + forecast.cod
+        // );
 
         var future = document.querySelector("#future-" + [i]);
         future.innerHTML = " ";
-        // id="future-title-7"
+    
         var futureTitle = document.querySelector("#future-title-" + [i]);
         futureTitle.textContent = " ";
-        //http://openweathermap.org/img/wn/10d@2x.png
+      
         var futureForecastEl = document.createElement("ul");
         futureForecastEl.className = "flex-start, padding:0px";
         var forecastDateEl = document.createElement("h3");
@@ -191,9 +191,10 @@ var locateForecast = function (locate) {
       }
     });
 };
-var count = 0;
-// $("#searchBtn").on("click", locateCurrent("london"));
 
+
+
+// When search button is submitted it will take value of input and give to LocateCurrent(and other 2 fetches)
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   var locateCity = document.querySelector("#locateCity").value;
@@ -205,23 +206,27 @@ searchBtn.addEventListener("click", function (event) {
   cityLi.append(cityBtn);
   $("#history").prepend(cityLi);
 
+  // Count used to store city buttons
   localStorage.setItem("city-" + count, locateCity);
   localStorage.setItem("amountSearch", count);
   count++;
   
 });
 
+// These 3 lines of code took me 5 hours to get working. When a generated button is clicked it will re-run locateCurrent
 $(".list-group").on("click", function (event) {
   var city = event.target.innerHTML;
   locateCurrent(city);
 });
 
+// On a reload, loadCities() will generate previous buttons
 var loadCities = function () {
   var amountBtn = localStorage.getItem("amountSearch");
+  // if first time return
   if (amountBtn === null){
     return;
   }
-
+// builds previous buttons
   for (var i = -1; i < amountBtn; i++) {
     var loadCity = localStorage.getItem("city-"+ (i+1));
     var cityLi = $("<li>").addClass("list-group-item");
@@ -230,19 +235,6 @@ var loadCities = function () {
     $("#history").prepend(cityLi);
   }
 }
-
+//runs previous searched cities
 loadCities()
-// data attributes to later add to course.
-// var historyBtn =document.querySelector("#search-0")
-// $(historyBtn).on("click",
-// console.log(historyBtn)
-// var searchAgain = $(this).text();
-// alert("You clicked on a button! now run the locate function")
-// locateCurrent(searchAgain);
-// document.querySelector("#search").textContent
 
-// var historyBtn =document.querySelector("search-"+count)
-// historyBtn.add
-// $(historyBtn).on("click", function(event){
-// event.preventDefault();
-// locateCurrent($(this).textContent)})
