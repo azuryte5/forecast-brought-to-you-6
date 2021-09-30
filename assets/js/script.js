@@ -92,7 +92,7 @@ var locateUV = function (lat, lon) {
       console.log(uvIndex);
       console.log(uvIndex.current.uvi);
       var currentUV = uvIndex.current.uvi;
-      var weatherUVEl = document.createElement("li");
+      var weatherUVEl = document.createElement("div");
       weatherUVEl.textContent = "UV index: " + uvIndex.current.uvi;
       if (currentUV >= 7) {
         weatherUVEl.className = "alert alert-danger";
@@ -198,7 +198,7 @@ searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   var locateCity = document.querySelector("#locateCity").value;
   locateCurrent(locateCity);
-
+  $('#locateCity').val('');
 
   var cityLi = $("<li>").addClass("list-group-item");
   var cityBtn = $("<button>").addClass("btn saveBtn btn-info").text(locateCity);
@@ -211,9 +211,7 @@ searchBtn.addEventListener("click", function (event) {
   
 });
 
-// (".task-item[data-task-id='" + taskId + "']")
 $(".list-group").on("click", function (event) {
-  // console.log(event.target.innerHTML)})
   var city = event.target.innerHTML;
   locateCurrent(city);
 });
