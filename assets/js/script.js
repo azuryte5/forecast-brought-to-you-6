@@ -1,7 +1,8 @@
 var current = document.querySelector("#current");
 var searchBtn = document.getElementById("searchBtn");
+var city = [];
 
-;
+//Local storage of saved cities searches to loop through when buttons are clicked.
 
 var locateCurrent = function (locate) {
   current.innerHTML=" ";
@@ -14,6 +15,7 @@ var locateCurrent = function (locate) {
     if (weather.ok) {
       return weather.json().then(function (weather) {
         console.log(weather);
+        console.log("This is the cityname:" + cityName);
         // console grabs of business logic
         console.log("The current City is :" + weather.name);
         console.log("The city is part of this country: " + weather.sys.country);
@@ -33,7 +35,7 @@ var locateCurrent = function (locate) {
         // Pinpoint city location to send to locateUV
         var cityLat = weather.coord.lat;
         var cityLon = weather.coord.lon;
-
+        
         locateUV(cityLat, cityLon);
         locateForecast(cityName);
 
@@ -101,6 +103,8 @@ var locateUV = function (lat, lon) {
       current.appendChild(weatherUVEl);
     });
 };
+
+// var apiURL = “https://api.openweathermap.org/data/2.5/forecast?q=” + searchInput + “&appid=1bcef183a294ce737390e54c659003f3";
 // This is be just for 5 day forecast
 var locateForecast = function (locate) {
   var cityName = locate;
@@ -184,9 +188,12 @@ event.preventDefault();
 var locateCity = document.querySelector("#locateCity").value;
 locateCurrent(locateCity);
 
+
+
 var cityLi=$("<li>").addClass("list-group-item");
-var cityBtn=$("<button>").attr("id","search").addClass("btn saveBtn btn-info").text(locateCity);
-// var cityBtn=$("<button>").attr("id","search-"+count).addClass("btn saveBtn btn-info").text(locateCity);
+// cityLi.setAttribute("data-cty-id", count)
+// var cityBtn=$("<button>").attr("id","search").addClass("btn saveBtn btn-info").text(locateCity);
+var cityBtn=$("<button>").addClass("btn saveBtn btn-info").text(locateCity);
 
 cityLi.append(cityBtn)
 $("#history").prepend(cityLi)
@@ -194,14 +201,24 @@ count++
 
 })
 
-var historyBtn =document.getElementById("#search")
-$(historyBtn).on("click", locateCurrent($(this).textContent));
+// (".task-item[data-task-id='" + taskId + "']")
+$(".list-group").on("click", function(event){
+// console.log(event.target.innerHTML)})
+  var city= event.target.innerHTML
+  locateCurrent(city)})
 
+  
+// data attributes to later add to course.
+// var historyBtn =document.querySelector("#search-0")
+// $(historyBtn).on("click",
+// console.log(historyBtn)
 // var searchAgain = $(this).text();
-//  alert("You clicked on a button! now run the locate function")
+// alert("You clicked on a button! now run the locate function")
 // locateCurrent(searchAgain);  
 // document.querySelector("#search").textContent
 
 // var historyBtn =document.querySelector("search-"+count)
-// $(historyBtn).on("click", function(){
+// historyBtn.add
+// $(historyBtn).on("click", function(event){
+// event.preventDefault();
 // locateCurrent($(this).textContent)})
