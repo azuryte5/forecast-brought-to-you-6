@@ -5,7 +5,7 @@ var city = [];
 //Local storage of saved cities searches to loop through when buttons are clicked.
 
 var locateCurrent = function (locate) {
-  current.innerHTML=" ";
+  current.innerHTML = " ";
   var cityName = locate;
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -35,7 +35,7 @@ var locateCurrent = function (locate) {
         // Pinpoint city location to send to locateUV
         var cityLat = weather.coord.lat;
         var cityLon = weather.coord.lon;
-        
+
         locateUV(cityLat, cityLon);
         locateForecast(cityName);
 
@@ -48,7 +48,8 @@ var locateCurrent = function (locate) {
         var weatherCountryEl = document.createElement("li");
         weatherCountryEl.textContent = " Country: " + weather.sys.country;
         var weatherTempEl = document.createElement("li");
-        weatherTempEl.textContent = "Temp: " + Math.round(weather.main.temp) + " °C 🌡️";
+        weatherTempEl.textContent =
+          "Temp: " + Math.round(weather.main.temp) + " °C 🌡️";
         var weatherWindEl = document.createElement("li");
         weatherWindEl.textContent =
           "Wind speed: " + Math.round(weather.wind.speed) + " KPH 🚩";
@@ -66,9 +67,12 @@ var locateCurrent = function (locate) {
         current.appendChild(currentWeatherEl);
       });
     } else {
-      alert("There is a problem with your request!");
-      //document.location.replace("./index.html");
+      alert("There is a problem with your request!")
+      localStorage.clear();
+      document.location.replace("./index.html");
     }
+
+    //Time to save to storage
   });
 };
 // get coordinates from here weather.coord.lat + weather.coord.lon   !!!!!!
@@ -122,9 +126,9 @@ var locateForecast = function (locate) {
         console.log(i);
         // This finds the date and adds it to the 5-day schedule
         console.log("This is the date " + forecast.list[i].dt_txt);
-        var forecastDateText=forecast.list[i].dt_txt.split(" ");
-        forecastDate=forecastDateText[0]
-        console.log(forecastDate)
+        var forecastDateText = forecast.list[i].dt_txt.split(" ");
+        forecastDate = forecastDateText[0];
+        console.log(forecastDate);
 
         console.log(
           "This is the weather icon info: " + forecast.list[i].weather[0].icon
@@ -137,15 +141,19 @@ var locateForecast = function (locate) {
           "The Temperature is " + forecast.list[i].main.temp + " °C 🌡️"
         );
         console.log(
-          "The Wind speed is " + Math.round(forecast.list[i].wind.speed*3.6) + "km/h 🚩"
+          "The Wind speed is " +
+            Math.round(forecast.list[i].wind.speed * 3.6) +
+            "km/h 🚩"
         );
-        console.log("The Humidity is " + forecast.list[i].main.humidity + "% 💧");
+        console.log(
+          "The Humidity is " + forecast.list[i].main.humidity + "% 💧"
+        );
         console.log(
           "When this is 200, it means the fetch worked: " + forecast.cod
         );
-        
+
         var future = document.querySelector("#future-" + [i]);
-        future.innerHTML=" ";
+        future.innerHTML = " ";
         // id="future-title-7"
         var futureTitle = document.querySelector("#future-title-" + [i]);
         futureTitle.textContent = " ";
@@ -156,7 +164,7 @@ var locateForecast = function (locate) {
         forecastDateEl.textContent = "Date: " + forecastDate;
 
         var forecastIconEl = document.getElementById("icon-" + [i]);
-        forecastIconEl.innerHTML=
+        forecastIconEl.innerHTML =
           '<img src="http://openweathermap.org/img/wn/' +
           forecast.list[i].weather[0].icon +
           '@2x.png">' +
@@ -167,7 +175,9 @@ var locateForecast = function (locate) {
           "Temp: " + Math.round(forecast.list[i].main.temp) + " °C 🌡️";
         var forecastWindEl = document.createElement("li");
         forecastWindEl.textContent =
-          "Wind speed: " + Math.round(forecast.list[i].wind.speed*3.6) + " km/h 🚩";
+          "Wind speed: " +
+          Math.round(forecast.list[i].wind.speed * 3.6) +
+          " km/h 🚩";
         var forecastHumidEl = document.createElement("li");
         forecastHumidEl.textContent =
           "Humidity: " + forecast.list[i].main.humidity + " % 💧";
@@ -181,40 +191,56 @@ var locateForecast = function (locate) {
       }
     });
 };
-var count = 0
+var count = 0;
 // $("#searchBtn").on("click", locateCurrent("london"));
-searchBtn.addEventListener("click", function(event){
-event.preventDefault();
-var locateCity = document.querySelector("#locateCity").value;
-locateCurrent(locateCity);
+
+searchBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  var locateCity = document.querySelector("#locateCity").value;
+  locateCurrent(locateCity);
 
 
+  var cityLi = $("<li>").addClass("list-group-item");
+  var cityBtn = $("<button>").addClass("btn saveBtn btn-info").text(locateCity);
+  cityLi.append(cityBtn);
+  $("#history").prepend(cityLi);
 
-var cityLi=$("<li>").addClass("list-group-item");
-// cityLi.setAttribute("data-cty-id", count)
-// var cityBtn=$("<button>").attr("id","search").addClass("btn saveBtn btn-info").text(locateCity);
-var cityBtn=$("<button>").addClass("btn saveBtn btn-info").text(locateCity);
-
-cityLi.append(cityBtn)
-$("#history").prepend(cityLi)
-count++
-
-})
+  localStorage.setItem("city-" + count, locateCity);
+  localStorage.setItem("amountSearch", count);
+  count++;
+  
+});
 
 // (".task-item[data-task-id='" + taskId + "']")
-$(".list-group").on("click", function(event){
-// console.log(event.target.innerHTML)})
-  var city= event.target.innerHTML
-  locateCurrent(city)})
+$(".list-group").on("click", function (event) {
+  // console.log(event.target.innerHTML)})
+  var city = event.target.innerHTML;
+  locateCurrent(city);
+});
 
-  
+var loadCities = function () {
+  var amountBtn = localStorage.getItem("amountSearch");
+  if (amountBtn === null){
+    return;
+  }
+
+  for (var i = -1; i < amountBtn; i++) {
+    var loadCity = localStorage.getItem("city-"+ (i+1));
+    var cityLi = $("<li>").addClass("list-group-item");
+    var cityBtn = $("<button>").addClass("btn saveBtn btn-info").text(loadCity);
+    cityLi.append(cityBtn);
+    $("#history").prepend(cityLi);
+  }
+}
+
+loadCities()
 // data attributes to later add to course.
 // var historyBtn =document.querySelector("#search-0")
 // $(historyBtn).on("click",
 // console.log(historyBtn)
 // var searchAgain = $(this).text();
 // alert("You clicked on a button! now run the locate function")
-// locateCurrent(searchAgain);  
+// locateCurrent(searchAgain);
 // document.querySelector("#search").textContent
 
 // var historyBtn =document.querySelector("search-"+count)
