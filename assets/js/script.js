@@ -210,7 +210,7 @@ searchBtn.addEventListener("click", function (event) {
   $('#locateCity').val('');
 
   var cityLi = $("<li>").addClass("list-group-item");
-  var cityBtn = $("<button>").addClass("btn saveBtn btn-info").text(locateCity);
+  var cityBtn = $("<button>").addClass("btn saveBtn btn-info col-lg").text(locateCity);
   cityLi.append(cityBtn);
   $("#history").prepend(cityLi);
 
