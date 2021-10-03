@@ -16,7 +16,8 @@ var locateCurrent = function (locate) {
       return weather.json().then(function (weather) {
         console.log(weather);
         // console.log("This is the cityname:" + cityName);
-        
+        console.log("the current weather is " + weather.weather[0].description )
+        console.log("the current weather icon is " + weather.weather[0].icon )
         // console.log("The current City is :" + weather.name);
         // console.log("The city is part of this country: " + weather.sys.country);
         // console.log(
@@ -55,7 +56,13 @@ var locateCurrent = function (locate) {
           "Wind speed: " + Math.round(weather.wind.speed) + " KPH 🚩";
         var weatherHumidEl = document.createElement("li");
         weatherHumidEl.textContent =
-          "Humidity: " + weather.main.humidity + " %";
+          "Humidity: " + weather.main.humidity + " % 💧";
+        var weatherIconEl = document.createElement("li");
+        weatherIconEl.innerHTML =
+          '<img src="http://openweathermap.org/img/wn/' +
+          weather.weather[0].icon +
+          '@2x.png">' +
+          weather.weather[0].description;
 
         
         currentWeatherEl.appendChild(weatherCityEl);
@@ -63,6 +70,7 @@ var locateCurrent = function (locate) {
         currentWeatherEl.appendChild(weatherTempEl);
         currentWeatherEl.appendChild(weatherWindEl);
         currentWeatherEl.appendChild(weatherHumidEl);
+        currentWeatherEl.appendChild(weatherIconEl);
 
         current.appendChild(currentWeatherEl);
       });
